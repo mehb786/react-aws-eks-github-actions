@@ -33,7 +33,7 @@ jobs:
     - name: docker build step
       run: docker build -t githubbuild .
     - name: docker tag with proper name
-      run: docker image tag githubbuild ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
+      run: docker tag githubbuild ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
     - name: docker push to repo
       run : |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
