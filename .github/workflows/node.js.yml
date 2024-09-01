@@ -38,12 +38,18 @@ jobs:
       run : |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
     - name: Set up kubectl
-      uses: azure/setup-kubectl@v2
-  
-    - name: Decode Kubeconfig and Set Up kubectl
       run: |
-          echo "${{ secrets.KUBECONFIG }}" | base64 -d > C:/Users/hp/.kube/config
-  
+        curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        chmod +x minikube
+        sudo mv minikube /usr/local/bin/
+        
+        # Install kubectl
+        curl -LO "https://dl.k8s.io/release/v1.27.0/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+        
+        # Start Minikube
+        minikube start --driver=docker
     - name: Deploy to Kubernetes
       run: |
           kubectl apply -f .
