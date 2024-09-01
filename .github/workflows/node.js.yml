@@ -31,6 +31,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: docker build step
-      uses: docker/setup-buildx-action@v3
+      run: docker build -t githubbuild .
+    - name: docker tag with proper name
+      run: docker image tag githubbuild ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
+    - name: docker push to repo
+      run : |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/githubbuild:v1
+       
     
 
