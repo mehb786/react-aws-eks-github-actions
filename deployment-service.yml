@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: react-aws-eks-github-actions
-        image: codewithmuh/react-aws-eks-github-actions:latest
+        image: mehb786/react-app:v1
         ports:
         - containerPort: 3000   # Use port 3000
 
@@ -29,6 +29,6 @@ spec:
     app: react-aws-eks-github-actions
   ports:
   - protocol: TCP
-    port: 80                 # Expose port 80
+    port: 80                # Expose port 80
     targetPort: 3000
-  type: LoadBalancer
+  type: NodePort
